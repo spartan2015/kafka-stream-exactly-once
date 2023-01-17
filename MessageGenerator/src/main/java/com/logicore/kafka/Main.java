@@ -43,7 +43,7 @@ public class Main {
 //        producer.initTransactions();
 
         int i = 0;
-        while (i<10000) {
+        while (i<2) {
             PaymentMessage paymentMessage = generateNextMessage();
             producer.send(new ProducerRecord<>("message", paymentMessage.getKey(), paymentMessage.getValue()));
 //            producer.commitTransaction();

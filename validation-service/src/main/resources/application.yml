@@ -1,5 +1,13 @@
 ---
+
 spring:
+  zipkin:
+    base-url=http://localhost:9411
+  sleuth:
+    messaging:
+      kafka:
+        streams:
+          enabled: true
   config:
     activate:
       on-profile: "local"
@@ -101,6 +109,10 @@ spring:
 
 server:
   port: 7400
+
+services:
+  order-service:
+    url: localhost:8082
 
 logging:
   level:
