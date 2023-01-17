@@ -1,0 +1,107 @@
+---
+spring:
+  config:
+    activate:
+      on-profile: "local"
+  cloud:
+    stream:
+      bindings:
+        input-channel:
+          destination: validate
+        output-channel:
+          destination: messageprocessed
+      kafka:
+        streams:
+          binder:
+            deserialization-exception-handler: sendToDlq
+            applicationId: validateApp
+            brokers: localhost:9092
+            configuration:
+              processing.guarantee: exactly_once_v2
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          bindings:
+            output-channel:
+              producer:
+                valueSerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              consumer:
+                dlqName: topic-error
+---
+spring:
+  config:
+    activate:
+      on-profile: "dev"
+  cloud:
+    stream:
+      bindings:
+        input-channel:
+          destination: validate
+        output-channel:
+          destination: messageprocessed
+      kafka:
+        streams:
+          binder:
+            deserialization-exception-handler: sendToDlq
+            applicationId: validateApp
+            brokers: localhost:9092
+            configuration:
+              processing.guarantee: exactly_once_v2
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          bindings:
+            output-channel:
+              producer:
+                valueSerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              consumer:
+                dlqName: topic-error
+---
+spring:
+  config:
+    activate:
+      on-profile: "prod"
+  cloud:
+    stream:
+      bindings:
+        input-channel:
+          destination: validate
+        output-channel:
+          destination: messageprocessed
+      kafka:
+        streams:
+          binder:
+            deserialization-exception-handler: sendToDlq
+            applicationId: validateApp
+            brokers: localhost:9092
+            configuration:
+              processing.guarantee: exactly_once_v2
+              default:
+                key:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+                value:
+                  serde: org.apache.kafka.common.serialization.Serdes$StringSerde
+          bindings:
+            output-channel:
+              producer:
+                valueSerde: org.apache.kafka.common.serialization.Serdes$StringSerde
+              consumer:
+                dlqName: topic-error
+---
+
+spring:
+  application:
+    name: service-validator
+  profiles:
+    active: "local"
+
+server:
+  port: 7400
+
+logging:
+  level:
+    root: INFO
