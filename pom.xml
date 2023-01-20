@@ -13,6 +13,7 @@
         <module>message-counter</module>
         <module>MessageGenerator</module>
         <module>validation-service</module>
+        <module>validation-service2</module>
         <module>ruleengine-service</module>
     </modules>
 

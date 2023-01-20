@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.volante.innovation</groupId>
-	<artifactId>validation-service</artifactId>
+	<artifactId>validation-service2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>validation-service</name>
 	<description>validation-service</description>

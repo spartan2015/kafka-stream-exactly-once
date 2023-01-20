@@ -1,5 +1,6 @@
 ---
 spring:
+
   zipkin:
     endpoint: http://localhost:9411
   sleuth:
@@ -19,16 +20,16 @@ spring:
     stream:
       bindings:
         myService-in-0:
-          destination: validate
-        myService-out-0:
           destination: messageprocessed
+        myService-out-0:
+          destination: done
       kafka:
         binder:
           enableObservation: true
           brokers: localhost:9092
 
   application:
-    name: service-validator
+    name: service-validator2
 
 
 logging:
@@ -44,3 +45,5 @@ management:
   tracing:
     sampling:
       probability: 1.0
+server:
+  port: 8081

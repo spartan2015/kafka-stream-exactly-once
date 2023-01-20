@@ -5,8 +5,10 @@ extensions:
     endpoint: 0.0.0.0:55679
 
 receivers:
-  zipkin:
-    endpoint: 0.0.0.0:9411
+  otlp:
+    protocols:
+      grpc:
+      http:
 
 processors:
   batch:
@@ -14,14 +16,15 @@ processors:
 exporters:
   logging:
     logLevel: debug
-  otlp:
-    endpoint: jaeger-all-in-one:4317
+  jaeger:
+    endpoint: localhost:14250
     tls:
       insecure: true
+
 service:
   pipelines:
     traces:
-      receivers: [ zipkin ]
+      receivers: [ otlp ]
       processors: [ batch ]
-      exporters: [ logging, otlp ]
+      exporters: [ logging, jaeger ]
   extensions: [ memory_ballast, zpages ]
