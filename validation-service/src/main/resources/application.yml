@@ -15,12 +15,16 @@ spring:
     stream:
       bindings:
         input-channel:
+          group: group
           destination: validate
         output-channel:
+          producer:
+            error-channel-enabled: true
           destination: messageprocessed
       kafka:
         streams:
           binder:
+            error-channel-enabled: true
             deserialization-exception-handler: sendToDlq
             applicationId: validateApp
             brokers: localhost:9092
